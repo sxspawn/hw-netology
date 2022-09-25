@@ -14,4 +14,28 @@ public class SalesManager {
         }
         return max;
     }
+
+    public int min() {
+        int min = Integer.MAX_VALUE;
+        for (int sale : sales) {
+            if (sale < min) {
+                min = sale;
+            }
+        }
+        return min;
+    }
+
+    public int trunkAvg() {
+        int min = min();
+        int max = max();
+        int cnt = 0;
+        int sum = 0;
+        for (int sale : sales) {
+            if (min < sale && sale < max) {
+                sum += sale;
+                cnt++;
+            }
+        }
+        return cnt == 0 ? -1 : sum / cnt;
+    }
 }
