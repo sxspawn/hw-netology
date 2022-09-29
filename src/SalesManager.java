@@ -16,7 +16,7 @@ public class SalesManager {
     }
 
     public long min() {
-        long min = Integer.MAX_VALUE;
+        long min = Long.MAX_VALUE;
         for (long sale : sales) {
             if (sale < min) {
                 min = sale;
@@ -25,17 +25,19 @@ public class SalesManager {
         return min;
     }
 
-    public long trunkAvg() {
-        long min = min();
-        long max = max();
-        long cnt = 0;
+    public long cnt() {
         long sum = 0;
         for (long sale : sales) {
-            if (min < sale && sale < max) {
-                sum += sale;
-                cnt++;
-            }
+            sum += sale;
         }
-        return cnt == 0 ? -1 : sum / cnt;
+        return sum;
+    }
+
+    public long trunkAvg() {
+        if (sales.length <= 2) {
+            return -1;
+        }
+        long sum = cnt() - max() - min();
+        return sum / (sales.length - 2);
     }
 }
